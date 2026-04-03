@@ -4,5 +4,9 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-eframe = "0.34.1"
-egui = "0.34.1"
+eframe = "0.33.3"
+egui = "0.33.3"
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen-futures = "0.4.58"
+web-sys = "0.3.85"
