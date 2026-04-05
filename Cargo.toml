@@ -10,3 +10,10 @@ egui = "0.33.3"
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 wasm-bindgen-futures = "0.4.58"
 web-sys = "0.3.85"
+
+[profile.release]
+opt-level = 'z'     # Optimiza para tamaño de archivo (en lugar de solo velocidad)
+lto = true          # Link Time Optimization (analiza todo el proyecto como un bloque)
+codegen-units = 1   # Reduce la velocidad de compilación pero genera mejor código
+panic = 'abort'     # Elimina el código de "unwinding", reduciendo el peso
+strip = true        # Elimina automáticamente los símbolos de depuración
