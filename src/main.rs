@@ -1,3 +1,5 @@
+// Este código se ejecutará en Widnows y como aplicación web: Web Assembly
+
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use eframe::egui;
@@ -7,17 +9,17 @@ use eframe::egui;
 fn main() -> eframe::Result {
     let options = eframe::NativeOptions::default();
     
-    eframe::run_native(
+    eframe::run_native( //Crea una ventana en el sistema operativo donde se está ejecutando
         "egui App",
         options,
         Box::new(|cc| {
-            cc.egui_ctx.set_visuals(egui::Visuals::dark());
-            Ok(Box::new(MyApp::default()))
+            cc.egui_ctx.set_visuals(egui::Visuals::dark()); // Pone el tema oscuro
+            Ok(Box::new(MyApp::default())) // Inicializa el estado de la app
         }),
     )
 }
 
-// web version
+// web version: WebAssembly
 #[cfg(target_arch = "wasm32")]
 fn main() {
     use eframe::wasm_bindgen::JsCast as _;
@@ -67,7 +69,8 @@ fn main() {
     });
 }
 
-#[derive(Default)]
+// Estado de la aplicación
+#[derive(Default)] //Creamos una instancia con todos los atributos vacíos (String vacío, 0 y 0)
 struct MyApp {
     name: String,
     age: u32,
@@ -76,20 +79,20 @@ struct MyApp {
 
 impl eframe::App for MyApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        egui::CentralPanel::default().show(ctx, |ui| {
+        egui::CentralPanel::default().show(ctx, |ui| { //Panel principal, aquí dibujamos cada elemento
             
             ui.heading("Welcome to egui!");
             
             ui.separator();
             
-            ui.horizontal(|ui| {
+            ui.horizontal(|ui| { //Organizador modo fila, se organzan los elementos que contienen en la misma fila: Etiqueta + Texto
                 ui.label("Your name: ");
                 ui.text_edit_singleline(&mut self.name);
             });
             
-            ui.add(egui::Slider::new(&mut self.age, 0..=120).text("age"));
+            ui.add(egui::Slider::new(&mut self.age, 0..=120).text("age")); // Crea una barra deslizante
             
-            if ui.button("Increment Counter").clicked() {
+            if ui.button("Increment Counter").clicked() { // Implemetna la opción de pulsar el botón
                 self.counter += 1;
             }
             
